@@ -1,6 +1,8 @@
 const express = require('express');
 const axios = require('axios');
 const https = require('https');
+require('dotenv').config();
+
 
 const app = express();
 const PORT = process.env.PORT || 10000; // Use process.env.PORT (default to 10000 if not set)
@@ -15,7 +17,7 @@ app.get('/', (req, res) => {
 
 app.get('/services', async (req, res) => {
     try {
-        const apiKey = 'rnd_zsPHuBIyR8uzqkx2tczzEo0jYnIC'; // Replace with your Render API Key
+        const apiKey = process.env.RENDER_API_KEY; // Replace with your Render API Key
         const response = await axios.get('https://api.render.com/v1/services', {
             headers: { Authorization: `Bearer ${apiKey}` },
             httpsAgent, // Use the custom HTTPS agent
