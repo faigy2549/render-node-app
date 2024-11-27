@@ -3,11 +3,14 @@ const axios = require('axios');
 const https = require('https');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 10000; // Use process.env.PORT (default to 10000 if not set)
 
-// Create an HTTPS agent that skips SSL certificate validation
 const httpsAgent = new https.Agent({
-    rejectUnauthorized: false, // This disables SSL validation
+    rejectUnauthorized: false, // Disable SSL verification (only for local dev)
+});
+
+app.get('/', (req, res) => {
+    res.send('Hello from Render!');
 });
 
 app.get('/services', async (req, res) => {
@@ -24,4 +27,4 @@ app.get('/services', async (req, res) => {
     }
 });
 
-app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));  // Ensure you're listening on the dynamic port
